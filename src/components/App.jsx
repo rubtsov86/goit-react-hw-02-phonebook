@@ -18,7 +18,7 @@ export class App extends React.Component {
     }
 
   render() {
-    const { contacts, name } = this.state;
+    const { contacts} = this.state;
 
     return (<div
       style={{
