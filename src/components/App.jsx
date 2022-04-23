@@ -7,18 +7,15 @@ export class App extends React.Component {
 
   state = {
         contacts: [],
-        name: ''
     }
 
-    handleSubmit = evt => {
-        evt.preventDefault();
-        
-      this.state.contacts.push(evt.currentTarget.elements.name.value);
-
-    }
+    
+  
+  formSubmitHandler = data => {
+    this.setState(prevState => ({contacts: [...prevState.contacts, data.name]}))
+  }
 
   render() {
-    const { contacts} = this.state;
 
     return (<div
       style={{
@@ -32,10 +29,8 @@ export class App extends React.Component {
       }}
     >
      
-      <Phonebook
-        handleSubmit={this.handleSubmit}
-      />
-      <ContactsList arrayOfNames={contacts}/>
+      <Phonebook onSubmit={this.formSubmitHandler }/>
+      <ContactsList arrayOfNames={this.state.contacts} />
     </div>)
   }
     

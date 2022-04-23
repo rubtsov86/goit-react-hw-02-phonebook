@@ -1,12 +1,12 @@
 import React from 'react';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 
-const ContactsList = ({arrayOfNames}) => {
-  console.log(arrayOfNames)
+const ContactsList = ({ arrayOfNames }) => {
+    
     
     return (
         <ul>
-            {arrayOfNames.map(name => <li key={nanoid()}>{ name}</li>)}
+            {arrayOfNames.map(name => <li key={nanoid()}>{name}</li>)}
         </ul>
     )
 }
