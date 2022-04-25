@@ -1,38 +1,78 @@
 import React from 'react';
-import Phonebook from "./Phonebook";
+import Phonebook from './Phonebook';
 import ContactsList from './ContactsList';
-
+import Filter from './Filter';
+import { nanoid } from 'nanoid';
 
 export class App extends React.Component {
-
   state = {
-        contacts: [],
-    }
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
+  };
 
-    
-  
   formSubmitHandler = data => {
-    this.setState(prevState => ({contacts: [...prevState.contacts, data.name]}))
-  }
+    const find = this.state.contacts
+      .map(({ name }) => name.toLowerCase())
+      .includes(data.name.toLowerCase());
+
+    find
+      ? alert(`${data.name} is already in contacts`)
+      : this.setState(prevState => ({
+          contacts: [
+            ...prevState.contacts,
+            { name: data.name, number: data.number, id: nanoid() },
+          ],
+        }));
+  };
+
+  handleInput = evt => {
+    this.setState({
+      [evt.currentTarget.name]: evt.currentTarget.value,
+    });
+  };
+
+  deleteContact = evt => {
+    const filter = evt.currentTarget.name;
+
+    this.setState(prevState => ({
+      contacts: [
+        ...prevState.contacts.filter(contact => contact.name !== filter),
+      ],
+    }));
+  };
 
   render() {
+    return (
+      <div
+        style={{
+          // height: '100vh',
+          // display: 'flex',
+          // justifyContent: 'center',
+          // alignItems: 'center',
+          fontSize: 40,
+          paddingLeft: 20,
+          textTransform: 'uppercase',
+          color: '#010101',
+        }}
+      >
+        <h1>Phonebook</h1>
+        <Phonebook onSubmit={this.formSubmitHandler} />
 
-    return (<div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        textTransform: 'uppercase',
-        color: '#010101',
-      }}
-    >
-     
-      <Phonebook onSubmit={this.formSubmitHandler }/>
-      <ContactsList arrayOfNames={this.state.contacts} />
-    </div>)
+        <h2>Contacts</h2>
+        <Filter filter={this.state.filter} onInput={this.handleInput} />
+
+        <ContactsList
+          arrayOfNames={this.state.contacts.filter(contact =>
+            contact.name.toLowerCase().includes(this.state.filter)
+          )}
+          deleteContact={this.deleteContact}
+        />
+      </div>
+    );
   }
-    
- 
-};
+}

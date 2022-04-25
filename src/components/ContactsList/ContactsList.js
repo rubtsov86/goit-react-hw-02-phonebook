@@ -1,15 +1,31 @@
+import Contact from '.././Contact';
 import React from 'react';
-import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
-const ContactsList = ({ arrayOfNames }) => {
-    
-    
-    return (
-        <ul>
-            {arrayOfNames.map(name => <li key={nanoid()}>{name}</li>)}
-        </ul>
-    )
-}
+const ContactsList = ({ arrayOfNames, deleteContact }) => {
+  return (
+    <ul>
+      {arrayOfNames.map(({ name, number, id }) => (
+        <Contact
+          key={id}
+          name={name}
+          number={number}
+          deleteContact={deleteContact}
+        />
+      ))}
+    </ul>
+  );
+};
 
 export default ContactsList;
 
+ContactsList.propTypes = {
+  arrayOfNames: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.number.isRequired,
+    })
+  ),
+  deleteContact: PropTypes.func,
+};
