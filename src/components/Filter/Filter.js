@@ -23,6 +23,6 @@ const Filter = ({ filter, onInput }) => {
 export default Filter;
 
 Filter.propTypes = {
-  filter: PropTypes.string,
-  onInput: PropTypes.func,
+  filter: PropTypes.string.isRequired,
+  onInput: PropTypes.func.isRequired,
 };

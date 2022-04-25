@@ -67,5 +67,5 @@ class Phonebook extends React.Component {
 export default Phonebook;
 
 Phonebook.propTypes = {
-  onSubmit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 };

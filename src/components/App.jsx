@@ -68,7 +68,7 @@ export class App extends React.Component {
 
         <ContactsList
           arrayOfNames={this.state.contacts.filter(contact =>
-            contact.name.toLowerCase().includes(this.state.filter)
+            contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
           )}
           deleteContact={this.deleteContact}
         />
