@@ -1,6 +1,6 @@
 import React from 'react';
 import Phonebook from './Phonebook';
-import ContactsList from './ContactsList';
+import ContactListItem from './ContactListItem';
 import Filter from './Filter';
 import { nanoid } from 'nanoid';
 
@@ -23,10 +23,7 @@ export class App extends React.Component {
     find
       ? alert(`${data.name} is already in contacts`)
       : this.setState(prevState => ({
-          contacts: [
-            ...prevState.contacts,
-            { name: data.name, number: data.number, id: nanoid() },
-          ],
+          contacts: [...prevState.contacts, { ...data, id: nanoid() }],
         }));
   };
 
@@ -37,11 +34,11 @@ export class App extends React.Component {
   };
 
   deleteContact = evt => {
-    const filter = evt.currentTarget.name;
+    const filter = evt.currentTarget.id;
 
     this.setState(prevState => ({
       contacts: [
-        ...prevState.contacts.filter(contact => contact.name !== filter),
+        ...prevState.contacts.filter(contact => contact.id !== filter),
       ],
     }));
   };
@@ -66,7 +63,7 @@ export class App extends React.Component {
         <h2>Contacts</h2>
         <Filter filter={this.state.filter} onInput={this.handleInput} />
 
-        <ContactsList
+        <ContactListItem
           arrayOfNames={this.state.contacts.filter(contact =>
             contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
           )}

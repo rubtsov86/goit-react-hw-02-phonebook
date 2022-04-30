@@ -1,13 +1,14 @@
-import Contact from '.././Contact';
+import Contact from '../Contact';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ContactsList = ({ arrayOfNames, deleteContact }) => {
+const ContactListItem = ({ arrayOfNames, deleteContact }) => {
   return (
     <ul>
       {arrayOfNames.map(({ name, number, id }) => (
         <Contact
           key={id}
+          id={id}
           name={name}
           number={number}
           deleteContact={deleteContact}
@@ -17,9 +18,9 @@ const ContactsList = ({ arrayOfNames, deleteContact }) => {
   );
 };
 
-export default ContactsList;
+export default ContactListItem;
 
-ContactsList.propTypes = {
+ContactListItem.propTypes = {
   arrayOfNames: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

@@ -6,7 +6,6 @@ class Phonebook extends React.Component {
   state = {
     name: '',
     number: '',
-    filter: '',
   };
 
   handleInput = evt => {

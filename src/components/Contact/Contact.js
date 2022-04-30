@@ -2,12 +2,12 @@ import React from 'react';
 import s from './Contact.module.css';
 import PropTypes from 'prop-types';
 
-const Contact = ({ name, number, deleteContact }) => {
+const Contact = ({ id, name, number, deleteContact }) => {
   return (
     <li className={s.item}>
       <span>{name}: </span>
       <span>{number}</span>
-      <button className={s.button} name={name} onClick={deleteContact}>
+      <button className={s.button} id={id} onClick={deleteContact}>
         Delete
       </button>
     </li>
